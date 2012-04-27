@@ -70,7 +70,13 @@ public class MainFrame extends JFrame {
 				this.numRects = numRects;
 			}
 			public void actionPerformed(ActionEvent e) {
-				SortDisplay popUp = new SortSlowDisplay(Integer.parseInt(numRects.getText()),new Sorter[] {sorter});
+				int parsedInt = 10;
+				try{
+					parsedInt = Integer.parseInt(numRects.getText());
+				} catch(NumberFormatException n) {
+					
+				}
+				SortDisplay popUp = new SortSlowDisplay(parsedInt,new Sorter[] {sorter});
 				popUp.setVisible(true); 
 			}
 		}

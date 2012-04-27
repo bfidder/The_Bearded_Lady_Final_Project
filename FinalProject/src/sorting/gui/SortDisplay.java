@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Set;
 import java.util.TreeMap;
 
 import javax.swing.*;
@@ -25,6 +27,9 @@ public abstract class SortDisplay extends JDialog {
 	protected HashMap<Sorter,ArrayList<Integer>> allTheData;
 	protected HashMap<Sorter,LinkedList<Swap>> allTheSwaps; 
 	protected int numRect;
+	
+	protected abstract void run(); 
+	
 	public SortDisplay( int numRect, Sorter ... sorter) {
 		this.allTheData = new HashMap<Sorter, ArrayList<Integer>>();
 		this.allTheSwaps = new HashMap<Sorter, LinkedList<Swap>>();
@@ -33,6 +38,7 @@ public abstract class SortDisplay extends JDialog {
 		setup();
 		
 	}
+	
 	private void clearThenAddData(Sorter[] sorter) {
 		ArrayList<Integer> data = new ArrayList<Integer>();
 		for(int i = 0; i < 360; i += 360/numRect ){
@@ -45,14 +51,17 @@ public abstract class SortDisplay extends JDialog {
 			allTheSwaps.put(s,s.sort());
 		}
 	}
+	
 	private void setup() {
-		JButton step = new JButton("Step");
+		JButton step = new JButton("Go");
 	
 		setLayout(new BorderLayout());
-		setSize(600, 300);
+		setSize(900, 300);
 		setToMiddle();
-		//setResizable(false);
-		add(new Display(),BorderLayout.CENTER);
+		setResizable(false);
+		add(new Display(), BorderLayout.CENTER);
+		add(new sideNameBar(), BorderLayout.WEST);
+		
 		step.addActionListener(new ActionListener() {
 
 			@Override
@@ -64,7 +73,6 @@ public abstract class SortDisplay extends JDialog {
 
 	}
 
-
 	private void setToMiddle() {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		Point mid = new Point(
@@ -73,12 +81,25 @@ public abstract class SortDisplay extends JDialog {
 				);
 		setLocation(mid); 
 	}
-	protected abstract void run(); 
-	
+	private class sideNameBar extends JPanel {
+		public sideNameBar () {
+			setup();
+		}
+		private void setup() {
+			JLabel addingSorter;
+			Set<Sorter> theSorters = allTheData.keySet();
+			setLayout(new GridLayout(theSorters.size(),1));
+			for(Sorter thisSorter: theSorters) {
+				addingSorter = new JLabel(thisSorter.getName());
+				add(addingSorter);
+			}
+		}
+	}
 	private class Display extends JPanel {
 		public Display (){
-			setBorder(new TitledBorder (new EtchedBorder(), "Comparison"));
+			setBorder(new TitledBorder (new EtchedBorder(), "Sorting Algorithm"));
 		}
+		
 		@Override
 		public void paint(Graphics g) {
 			super.paint(g);
