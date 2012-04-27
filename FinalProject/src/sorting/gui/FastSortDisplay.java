@@ -2,8 +2,8 @@ package sorting.gui;
 
 import java.awt.Color;
 
-public class FastSort {
+public class FastSortDisplay extends SortDisplay {
 	public static Color returnColor(int color){
-		return new Color(0);
+		return Color.getHSBColor(color / 360f, 1, .5f);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class InsertionSort extends Sorter{
+	public static String name = "Insertion Sort";
 	
 	public InsertionSort(int ... data){
 		super(data);
