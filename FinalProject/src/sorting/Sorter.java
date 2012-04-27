@@ -11,9 +11,15 @@ public abstract class Sorter {
 	public abstract String getName();
 	
 	public Sorter(int ... data){
+	
 		this.data = new ArrayList<Integer>();
 		for (int i: data) this.data.add(i);
 		this.swapList = new LinkedList<Swap>();
+	}
+	
+	public void setData(ArrayList<Integer> data) {
+		this.data.clear();
+		this.data = data;
 	}
 	
 	public Sorter(ArrayList<Integer> data){
@@ -28,6 +34,6 @@ public abstract class Sorter {
 	}
 	
 	public ArrayList<Integer> getData() {
-		return data;
+		return new ArrayList<Integer>(data);
 	}
 }
