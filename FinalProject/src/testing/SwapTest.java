@@ -9,7 +9,7 @@ import java.util.Collection;
 import org.junit.Test;
 
 import sorting.BubbleSort;
-import sorting.MergeSort;
+import sorting.InsertionSort;
 import sorting.Swap;
 
 public class SwapTest {
@@ -33,9 +33,15 @@ public class SwapTest {
 	}
 	
 	@Test
-	public void testMergeSortSwap() {
-		MergeSort ms = new MergeSort(8, 6, 7, 3);
-		checkCollection("checking mergesort...", ms.sort(), sw(0, 1), sw(2, 3), sw(0, 2), sw(1, 2), sw(2, 3));
+	public void testSwapEquals(){
+		assertEquals(sw(0, 1), sw(0, 1));
+		assertEquals(sw(0, 1), sw(1, 0));
+	}
+	
+	@Test
+	public void testInsertionSortSwap() {
+		InsertionSort is = new InsertionSort(8, 6, 7, 3);
+		checkCollection("checking Insertionsort...", is.sort(), sw(0, 1), sw(1, 2), sw(2, 3), sw(1, 2), sw(0, 1));
 	}
 	
 	@Test
@@ -45,9 +51,9 @@ public class SwapTest {
 	}
 	
 	@Test
-	public void testZeroSwapMergeSort() {
-		MergeSort ms = new MergeSort();
-		checkCollection("mergesort zero...", ms.sort());
+	public void testZeroSwapInsertionSort() {
+		InsertionSort is = new InsertionSort();
+		checkCollection("Insertionsort zero...", is.sort());
 	}
 	
 	@Test
@@ -57,9 +63,9 @@ public class SwapTest {
 	}
 	
 	@Test
-	public void testOneSwapMergeSort() {
-		MergeSort ms = new MergeSort(1);
-		checkCollection("mergesort zero...", ms.sort());
+	public void testOneSwapInsertionSort() {
+		InsertionSort is = new InsertionSort(1);
+		checkCollection("Insertionsort zero...", is.sort());
 	}
 	
 }

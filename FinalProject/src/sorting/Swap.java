@@ -34,11 +34,14 @@ public class Swap {
 		Swap other = (Swap) o;
 		
 		if(other.start == start || other.start == end) {
-			if(other.end == end || other.start == start) {
+			if(other.end == end || other.end == start) {
 				return true;
 			}
 		}
 		
 		return false; 
+	}
+	public String toString(){
+		return "Swap(" + start + ", "+ end+ ")";
 	}
 }
