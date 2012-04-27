@@ -8,6 +8,7 @@ public abstract class Sorter {
 	protected LinkedList<Swap> swapList;
 	
 	public abstract LinkedList<Swap> sort();
+	public abstract String getName();
 	
 	public Sorter(int ... data){
 		this.data = new ArrayList<Integer>();

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class BubbleSort extends Sorter{
-	public static String name = "Bubble Sort";
+	public String getName() {
+		return "Bubble Sort";
+	}
 	
 	public BubbleSort(int ... data){
 		super(data);
