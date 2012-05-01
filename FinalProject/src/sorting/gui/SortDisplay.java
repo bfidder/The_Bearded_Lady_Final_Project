@@ -29,7 +29,13 @@ public abstract class SortDisplay extends JDialog implements Runnable {
 
 
 	public abstract void run(); 
-
+	
+	/* SortDisplay takes the number of colors to sort and Sorter objects
+	   it initializes numRect and adds the sorters to an ArrayList of sorter objects
+	   it also calls two helper methods which add the sorter to the gui with a
+	   random order and evenly spaced numbers which are translated to colors
+	   setup creates the sorting gui.*/
+	
 	public SortDisplay( int numRect, Sorter ... sorter) {
 		this.numRect = numRect;
 		allTheSorters = new ArrayList<Sorter>();
@@ -40,13 +46,13 @@ public abstract class SortDisplay extends JDialog implements Runnable {
 		setup();
 
 	}
-
+	
 	private void clearThenAddData(Sorter[] sorter) {
 		ArrayList<Integer> data = new ArrayList<Integer>();
 		for(int i = 0; i < 360; i += 360/numRect ){//add the integer values to the array, they must be evenly spaces and cover the range from 0 to 360 for a full rainbow
 			data.add(i);
 		}
-		Collections.shuffle(data);
+		Collections.shuffle(data); //randomize the integer values in the array
 		for( Sorter s : sorter){
 			s.setData((ArrayList<Integer>)data.clone());//for all the sorters set the data to the scrambled array
 			s.sort();
@@ -78,7 +84,10 @@ public abstract class SortDisplay extends JDialog implements Runnable {
 		}
 		
 	}
-
+	
+	/*
+	 * sets the position of the sorting gui to the middle of the page
+	 */
 	private void setToMiddle() {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		Point mid = new Point(
@@ -87,6 +96,10 @@ public abstract class SortDisplay extends JDialog implements Runnable {
 				);
 		setLocation(mid); 
 	}
+	
+	/*
+	 * sets up the labeling of the sorts
+	 */
 	private class sideNameBar extends JPanel {
 		public sideNameBar () {
 			setup();
@@ -100,6 +113,9 @@ public abstract class SortDisplay extends JDialog implements Runnable {
 			}
 		}
 	}
+	/*
+	 * paints the display for the sorting gui
+	 */
 	private class Display extends JPanel {
 		public Display (){
 			setBorder(new TitledBorder (new EtchedBorder(), "Sorting Algorithm"));

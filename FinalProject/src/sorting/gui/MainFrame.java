@@ -1,24 +1,29 @@
 package sorting.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import sorting.*;
+import sorting.BubbleSort;
+import sorting.HeapSort;
+import sorting.InsertionSort;
+import sorting.Sorter;
 
 public class MainFrame extends JFrame {
 	private static Sorter sorters[] = {new BubbleSort(), new InsertionSort(), new HeapSort()};
 	private Sorter sorter;
 	JTextField numRects;
 	
+	/*
+	 * creates the main gui, with buttons for comparing sorting algorithms, 
+	 * running insertion sort, running bubblesort, and running heap sort. 
+	 * It also has a textfield for the number of colors you want to sort. 
+	 */
 	public MainFrame() {
 		JButton fastButton = new JButton("Compare Algorithms");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,7 +41,9 @@ public class MainFrame extends JFrame {
 	private void setSorter(Sorter newSorter) {
 		sorter = newSorter;
 	}
-	
+	/*
+	 * adds the buttons for the sorters (not hard-coded)
+	 */
 	private class SortChoicePanel extends JPanel {
 		public SortChoicePanel() {
 			setLayout(new BorderLayout());
@@ -57,6 +64,9 @@ public class MainFrame extends JFrame {
 		}
 	}
 	
+	/*
+	 * class for the sorterButton  
+	 */
 	private class SorterButton extends JButton {
 		private Sorter sorter;
 		public SorterButton(Sorter s,JTextField numRects) {
@@ -64,6 +74,10 @@ public class MainFrame extends JFrame {
 			sorter = s;
 			addActionListener(new Gho(numRects));
 		}
+		/*
+		 * makes a new sort display object with the correct
+		 * number of color rectangles to sort
+		 */
 		private class Gho implements ActionListener{
 			private JTextField numRects;
 			public Gho (JTextField numRects){
@@ -81,6 +95,9 @@ public class MainFrame extends JFrame {
 			}
 		}
 	}
+	/*
+	 * reimplemented gho
+	 */
 	private class Guo implements ActionListener{
 		private JTextField numRects;
 		public Guo (JTextField numRects){
