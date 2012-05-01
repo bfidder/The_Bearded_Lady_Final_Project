@@ -1,7 +1,7 @@
 package sorting.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Set;
-import java.util.TreeMap;
+
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -22,55 +21,62 @@ import javax.swing.border.TitledBorder;
 
 import sorting.*;
 
-public abstract class SortDisplay extends JDialog {
-	
-	protected HashMap<Sorter,ArrayList<Integer>> allTheData;
-	protected HashMap<Sorter,LinkedList<Swap>> allTheSwaps; 
+public abstract class SortDisplay extends JDialog implements Runnable {
+	/** The number of rectangles per data set*/
+	protected ArrayList<Sorter> allTheSorters;
 	protected int numRect;
-	
-	protected abstract void run(); 
-	
+
+
+
+	public abstract void run(); 
+
 	public SortDisplay( int numRect, Sorter ... sorter) {
-		this.allTheData = new HashMap<Sorter, ArrayList<Integer>>();
-		this.allTheSwaps = new HashMap<Sorter, LinkedList<Swap>>();
 		this.numRect = numRect;
+		allTheSorters = new ArrayList<Sorter>();
+		for( Sorter s : sorter){
+			allTheSorters.add(s);
+		}
 		clearThenAddData(sorter);
 		setup();
-		
+
 	}
-	
+
 	private void clearThenAddData(Sorter[] sorter) {
 		ArrayList<Integer> data = new ArrayList<Integer>();
-		for(int i = 0; i < 360; i += 360/numRect ){
+		for(int i = 0; i < 360; i += 360/numRect ){//add the integer values to the array, they must be evenly spaces and cover the range from 0 to 360 for a full rainbow
 			data.add(i);
 		}
 		Collections.shuffle(data);
 		for( Sorter s : sorter){
-			s.setData((ArrayList<Integer>)data.clone());
-			allTheData.put(s, (ArrayList<Integer>)data.clone());
-			allTheSwaps.put(s,s.sort());
+			s.setData((ArrayList<Integer>)data.clone());//for all the sorters set the data to the scrambled array
+			s.sort();
 		}
 	}
-	
+
 	private void setup() {
 		JButton step = new JButton("Go");
-	
+
 		setLayout(new BorderLayout());
 		setSize(900, 300);
 		setToMiddle();
-		setResizable(false);
+		setResizable(true);
 		add(new Display(), BorderLayout.CENTER);
 		add(new sideNameBar(), BorderLayout.WEST);
-		
-		step.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				run(); 
-			}
-		});
+		step.addActionListener(new Runner(this));
 		add(step, BorderLayout.EAST);
 
+	}
+	private class Runner implements ActionListener{
+		private Runnable thingToMake;
+		Runner(Runnable r){
+			thingToMake = r;
+		}
+		public void actionPerformed(ActionEvent e) {
+			Thread runner = new Thread(thingToMake, "runner");
+			runner.start();
+		}
+		
 	}
 
 	private void setToMiddle() {
@@ -87,9 +93,8 @@ public abstract class SortDisplay extends JDialog {
 		}
 		private void setup() {
 			JLabel addingSorter;
-			Set<Sorter> theSorters = allTheData.keySet();
-			setLayout(new GridLayout(theSorters.size(),1));
-			for(Sorter thisSorter: theSorters) {
+			setLayout(new GridLayout(allTheSorters.size(),1));
+			for(Sorter thisSorter: allTheSorters ) {
 				addingSorter = new JLabel(thisSorter.getName());
 				add(addingSorter);
 			}
@@ -99,24 +104,21 @@ public abstract class SortDisplay extends JDialog {
 		public Display (){
 			setBorder(new TitledBorder (new EtchedBorder(), "Sorting Algorithm"));
 		}
-		
 		@Override
-		public void paint(Graphics g) {
-			super.paint(g);
-			int widthRect = (int) ((getWidth()*.93)/numRect);
-			int heightRect = (int) ((getHeight()*.9)/allTheSwaps.size());
-			
-			int numPrinted = 0;
-			for(Sorter curSorter : allTheData.keySet()){
-				
-				ArrayList<Integer> curData = allTheData.get(curSorter);
-				for(int i = 0; i<curData.size(); i++){
-					float curpoint = (float)curData.get(i);
-					g.setColor(Color.getHSBColor(curpoint/360, 1, 1f));
-					g.fillRect(i*widthRect+20, (heightRect+1)*(numPrinted)+20, widthRect, heightRect);
+		public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				//int widthRect = (int) ((getWidth()*.93)/numRect);
+				int heightRect = (int) ((getHeight()*.85)/allTheSorters.size());
+
+				int numPrinted = 0;
+				for(Sorter curSorter : allTheSorters){
+					curSorter.draw(20,(numPrinted)* (heightRect+5)+20 , heightRect, getWidth(), g);
+					numPrinted++;
 				}
-				numPrinted++;
-			}
+
+
+			
 		}
 	}
 }
+

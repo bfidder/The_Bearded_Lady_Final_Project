@@ -16,14 +16,9 @@ public class SortSlowDisplay extends SortDisplay {
 	}
 
 	@Override
-	protected void run(){
-		for(Sorter s : allTheData.keySet()){
-			LinkedList<Swap> curSwaps = allTheSwaps.get(s);
-			if(!curSwaps.isEmpty()){
-				Swap curSwap = curSwaps.pop();
-				Collections.swap(allTheData.get(s), curSwap.getStart(), curSwap.getEnd());
-			
-			}
+	public void run(){
+		for(Sorter s : allTheSorters){
+			s.nextStep();
 		}
 		repaint();
 	}

@@ -7,34 +7,32 @@ import java.util.LinkedList;
 import sorting.Sorter;
 import sorting.Swap;
 
-public class SortFastDisplay extends SortDisplay {
-	volatile int numSorts;
+public class SortFastDisplay extends SortDisplay implements Runnable {
 
 	public SortFastDisplay(int numRect, Sorter[] sorter) {
 		super(numRect, sorter);
-		numSorts = sorter.length;
 	}
 
 	@Override
-	protected void run() {
-		while(numSorts>0){
-			for(Sorter s : allTheData.keySet()){
-				LinkedList<Swap> curSwaps = allTheSwaps.get(s);
-				if(!curSwaps.isEmpty()){
-					Swap curSwap = curSwaps.pop();
-					Collections.swap(allTheData.get(s), curSwap.getStart(), curSwap.getEnd());
-					if(curSwaps.isEmpty()) {
-						numSorts--;
-					}
+	public void run() {
+		int numDone = 0;
+
+
+		while(numDone < allTheSorters.size()){
+			numDone=0;
+			for(Sorter s : allTheSorters){
+				if(!s.nextStep()){
+					numDone++;
 				}
-				
 			}
 			try {
-				update(getGraphics());
-				Thread.sleep(250);
+				repaint();
+
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				System.out.println("FFUUUUUU");
+
 			}
+
 		}
 	}
 }
