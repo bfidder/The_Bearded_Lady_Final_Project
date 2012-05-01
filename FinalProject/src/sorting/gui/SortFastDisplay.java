@@ -32,7 +32,7 @@ public class SortFastDisplay extends SortDisplay implements Runnable {
 			try {
 				repaint();
 
-				Thread.sleep(100);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 
 			}

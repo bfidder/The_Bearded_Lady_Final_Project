@@ -46,7 +46,7 @@ public abstract class Sorter {
 	}
 
 	public void draw(int leftX, int upperY, int height, int width, Graphics g){
-		int widthRect = (int) (width*.93)/scrambledData.size();
+		int widthRect = (int) (width)/scrambledData.size();
 		for(int i = 0; i<scrambledData.size(); i++){
 			float curPoint = (float)scrambledData.get(i);
 			if(curSwap != null && (curSwap.getStart() == i || curSwap.getEnd() == i)){
@@ -56,7 +56,6 @@ public abstract class Sorter {
 			}
 			g.fillRect(i*widthRect+leftX, upperY , widthRect, height);
 		}
-		System.out.println(curSwap);
 	}
 	public boolean nextStep(){
 		if(!swapList.isEmpty()){
