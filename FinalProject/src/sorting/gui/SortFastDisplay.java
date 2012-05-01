@@ -12,7 +12,11 @@ public class SortFastDisplay extends SortDisplay implements Runnable {
 	public SortFastDisplay(int numRect, Sorter[] sorter) {
 		super(numRect, sorter);
 	}
-
+	/*
+	 * sorts using all three sorting types until the number of steps 
+	 * done is equal to the size of the data to sort. It repaints 
+	 * the display every time a swap is executed.  
+	 */
 	@Override
 	public void run() {
 		int numDone = 0;

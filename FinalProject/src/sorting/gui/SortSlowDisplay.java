@@ -14,7 +14,7 @@ public class SortSlowDisplay extends SortDisplay {
 		super(numRect, sorter);
 		// TODO Auto-generated constructor stub
 	}
-
+	//calls the next step function and repaints the display
 	@Override
 	public void run(){
 		for(Sorter s : allTheSorters){
