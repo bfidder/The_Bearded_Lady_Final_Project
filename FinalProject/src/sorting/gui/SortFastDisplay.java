@@ -1,16 +1,23 @@
 package sorting.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import sorting.Sorter;
 import sorting.Swap;
 
 public class SortFastDisplay extends SortDisplay implements Runnable {
-
+	JTextField speed;
 	public SortFastDisplay(int numRect, Sorter[] sorter) {
 		super(numRect, sorter);
+		speed = new JTextField("Delay");
+		add(speed,BorderLayout.SOUTH);
 	}
 	/*
 	 * sorts using all three sorting types until the number of steps 
@@ -19,6 +26,7 @@ public class SortFastDisplay extends SortDisplay implements Runnable {
 	 */
 	@Override
 	public void run() {
+		allTheSorters = (ArrayList<Sorter>)allTheSorters.clone();
 		int numDone = 0;
 
 
@@ -29,13 +37,20 @@ public class SortFastDisplay extends SortDisplay implements Runnable {
 					numDone++;
 				}
 			}
+			int speedNum;
+			try {
+				speedNum = Integer.parseInt(speed.getText());
+			} catch (NumberFormatException e) {
+				speedNum = 50;
+			}
 			try {
 				repaint();
 
-				Thread.sleep(10);
+				Thread.sleep(speedNum);
 			} catch (InterruptedException e) {
 
 			}
+
 
 		}
 	}

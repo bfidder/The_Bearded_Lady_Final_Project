@@ -13,14 +13,14 @@ public class HeapTests {
 	LinkedList<Swap> swapList; 
 	@Before
 	public void init() {
-		int[] data = { 3, 2, 7, 5, 11, 1, 6 };
+		double[] data = { 3, 2, 7, 5, 11, 1, 6 };
 		theSort = new HeapSort(data);
 	}
 	
 	@Test
 	public void actuallySortedTest() {
 		 swapList = theSort.sort();
-		 ArrayList<Integer> theSortedData = theSort.getData();
+		 ArrayList<Double> theSortedData = theSort.getData();
 		 Collections.sort(theSortedData);
 		 LinkedList<Swap> trueSwaps = new LinkedList<Swap>();
 		 trueSwaps.add(new Swap(1, 4));

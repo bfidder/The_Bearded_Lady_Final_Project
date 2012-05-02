@@ -48,13 +48,13 @@ public abstract class SortDisplay extends JDialog implements Runnable {
 	}
 	
 	private void clearThenAddData(Sorter[] sorter) {
-		ArrayList<Integer> data = new ArrayList<Integer>();
-		for(int i = 0; i < 360; i += 360/numRect ){//add the integer values to the array, they must be evenly spaces and cover the range from 0 to 360 for a full rainbow
+		ArrayList<Double> data = new ArrayList<Double>();
+		for(double i = 0; i < 360; i += ((double)360)/numRect ){//add the integer values to the array, they must be evenly spaces and cover the range from 0 to 360 for a full rainbow
 			data.add(i);
 		}
 		Collections.shuffle(data); //randomize the integer values in the array
 		for( Sorter s : sorter){
-			s.setData((ArrayList<Integer>)data.clone());//for all the sorters set the data to the scrambled array
+			s.setData((ArrayList<Double>)data.clone());//for all the sorters set the data to the scrambled array
 			s.sort();
 		}
 	}
@@ -68,7 +68,7 @@ public abstract class SortDisplay extends JDialog implements Runnable {
 		setResizable(true);
 		add(new Display(), BorderLayout.CENTER);
 		add(new sideNameBar(), BorderLayout.WEST);
-
+		
 		step.addActionListener(new Runner(this));
 		add(step, BorderLayout.EAST);
 

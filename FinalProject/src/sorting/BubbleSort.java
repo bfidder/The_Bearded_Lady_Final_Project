@@ -9,11 +9,11 @@ public class BubbleSort extends Sorter{
 		return "Bubble Sort";
 	}
 	
-	public BubbleSort(int ... data){
+	public BubbleSort(double ... data){
 		super(data);
 	}
 	
-	public BubbleSort(ArrayList<Integer> data){
+	public BubbleSort(ArrayList<Double> data){
 		super(data);
 	}
 	/*

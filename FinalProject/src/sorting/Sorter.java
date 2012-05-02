@@ -8,8 +8,8 @@ import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 
 
 public abstract class Sorter {
-	protected ArrayList<Integer> data;
-	protected ArrayList<Integer> scrambledData;
+	protected ArrayList<Double> data;
+	protected ArrayList<Double> scrambledData;
 	protected LinkedList<Swap> swapList;
 
 	public abstract LinkedList<Swap> sort();
@@ -17,20 +17,20 @@ public abstract class Sorter {
 
 	private volatile Swap curSwap;
 
-	public Sorter(int ... data){
-		this.data = new ArrayList<Integer>();
-		for (int i: data) this.data.add(i);
-		scrambledData= (ArrayList<Integer>)this.data.clone();
+	public Sorter(double ... data){
+		this.data = new ArrayList<Double>();
+		for (double i: data) this.data.add(i);
+		scrambledData= (ArrayList<Double>)this.data.clone();
 		this.swapList = new LinkedList<Swap>();
 	}
 
-	public void setData(ArrayList<Integer> data) {
+	public void setData(ArrayList<Double> data) {
 		this.data.clear();
 		this.data = data;
-		scrambledData= (ArrayList<Integer>)data.clone();
+		scrambledData= (ArrayList<Double>)data.clone();
 	}
 
-	public Sorter(ArrayList<Integer> data){
+	public Sorter(ArrayList<Double> data){
 		this.data = data;
 		this.swapList = new LinkedList<Swap>();
 	}
@@ -41,18 +41,18 @@ public abstract class Sorter {
 		Collections.swap(data, loc1, loc2);
 	}
 
-	public ArrayList<Integer> getData() {
-		return new ArrayList<Integer>(data);
+	public ArrayList<Double> getData() {
+		return new ArrayList<Double>(data);
 	}
 
 	public void draw(int leftX, int upperY, int height, int width, Graphics g){
 		int widthRect = (int) (width)/scrambledData.size();
 		for(int i = 0; i<scrambledData.size(); i++){
-			float curPoint = (float)scrambledData.get(i);
+			double curPoint = (double)scrambledData.get(i);
 			if(curSwap != null && (curSwap.getStart() == i || curSwap.getEnd() == i)){
 				g.setColor(Color.BLACK);// if this point is being switched draw it as black
 			}else{
-				g.setColor(Color.getHSBColor(curPoint/360, 1, 1f));//if this point is not being switched draw it as its appropriate color
+				g.setColor(Color.getHSBColor((float)curPoint/360, 1, 1f));//if this point is not being switched draw it as its appropriate color
 			}
 			g.fillRect(i*widthRect+leftX, upperY , widthRect, height);
 		}

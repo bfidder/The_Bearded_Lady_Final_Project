@@ -5,11 +5,11 @@ import java.util.LinkedList;
 
 public class HeapSort extends Sorter {
 
-	public HeapSort(int ... data) {
+	public HeapSort(double ... data) {
 		super(data);
 	}
 	
-	public HeapSort(ArrayList<Integer> data) {
+	public HeapSort(ArrayList<Double> data) {
 		super(data); 
 	}
 	
@@ -32,7 +32,7 @@ public class HeapSort extends Sorter {
 	}
 	
 	private void heapify(int start, int end) {
-		int here = data.get(start);
+		double here = data.get(start);
 		int leftIndex = start*2 + 1;
 		int rightIndex = start*2 + 2;
 		int largestIndex = start;

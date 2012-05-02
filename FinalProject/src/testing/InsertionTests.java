@@ -5,12 +5,12 @@ import sorting.*;
 
 public class InsertionTests {
 	Sorter theSort;
-	int[] data;
+	double[] data;
 	final int SIZE = 10;
 	
 	@Before
 	public void init() {
-		data = new int[SIZE];
+		data = new double[SIZE];
 		theSort = new InsertionSort(data);
 	}
 }

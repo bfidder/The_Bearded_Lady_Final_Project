@@ -9,11 +9,11 @@ public class InsertionSort extends Sorter{
 		return "Insertion Sort";
 	}
 	
-	public InsertionSort(int ... data){
+	public InsertionSort(double ... data){
 		super(data);
 	}
 	
-	public InsertionSort(ArrayList<Integer> data){
+	public InsertionSort(ArrayList<Double> data){
 		super(data);
 	}
 	/*
