@@ -33,4 +33,13 @@ public class InsertionSort extends Sorter{
 		}
 		return swapList;
 	}
+
+	@Override
+	public Object clone() {
+		Sorter out = new InsertionSort((ArrayList<Double>)getData().clone());
+		out.swapList = (LinkedList<Swap>) swapList.clone();
+		out.scrambledData = (ArrayList<Double>) scrambledData.clone();
+		return out;
+	}
+	
 }

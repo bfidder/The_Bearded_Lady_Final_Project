@@ -32,4 +32,11 @@ public class BubbleSort extends Sorter{
 		
 		return swapList;
 	}
+	@Override
+	public Object clone() {
+		Sorter out = new BubbleSort((ArrayList<Double>)getData().clone());
+		out.swapList = (LinkedList<Swap>) swapList.clone();
+		out.scrambledData = (ArrayList<Double>) scrambledData.clone();
+		return out;
+	}
 }

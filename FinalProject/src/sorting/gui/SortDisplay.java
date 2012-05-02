@@ -40,14 +40,14 @@ public abstract class SortDisplay extends JDialog implements Runnable {
 		this.numRect = numRect;
 		allTheSorters = new ArrayList<Sorter>();
 		for( Sorter s : sorter){
-			allTheSorters.add(s);
+			allTheSorters.add((Sorter)s.clone());
 		}
-		clearThenAddData(sorter);
+		clearThenAddData(allTheSorters);
 		setup();
 
 	}
 	
-	private void clearThenAddData(Sorter[] sorter) {
+	private void clearThenAddData(ArrayList<Sorter> sorter) {
 		ArrayList<Double> data = new ArrayList<Double>();
 		for(double i = 0; i < 360; i += ((double)360)/numRect ){//add the integer values to the array, they must be evenly spaces and cover the range from 0 to 360 for a full rainbow
 			data.add(i);

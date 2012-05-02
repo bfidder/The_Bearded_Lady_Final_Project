@@ -23,7 +23,8 @@ public abstract class Sorter {
 		scrambledData= (ArrayList<Double>)this.data.clone();
 		this.swapList = new LinkedList<Swap>();
 	}
-
+	@Override
+	public abstract Object clone();
 	public void setData(ArrayList<Double> data) {
 		this.data.clear();
 		this.data = data;

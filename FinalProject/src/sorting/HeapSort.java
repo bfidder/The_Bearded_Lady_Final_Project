@@ -53,4 +53,11 @@ public class HeapSort extends Sorter {
 	public String getName() {
 		return "Heap Sort";
 	}
+	@Override
+	public Object clone() {
+		Sorter out = new HeapSort((ArrayList<Double>)getData().clone());
+		out.swapList = (LinkedList<Swap>) swapList.clone();
+		out.scrambledData = (ArrayList<Double>) scrambledData.clone();
+		return out;
+	}
 }
