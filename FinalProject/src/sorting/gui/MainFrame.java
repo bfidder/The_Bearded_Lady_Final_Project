@@ -12,10 +12,11 @@ import javax.swing.JTextField;
 import sorting.BubbleSort;
 import sorting.HeapSort;
 import sorting.InsertionSort;
+import sorting.QuickSort;
 import sorting.Sorter;
 
 public class MainFrame extends JFrame {
-	private static Sorter sorters[] = {new BubbleSort(), new InsertionSort(), new HeapSort()};
+	private static Sorter sorters[] = {new BubbleSort(), new InsertionSort(), new HeapSort(), new QuickSort()};
 	private Sorter sorter;
 	JTextField numRects;
 	
@@ -29,7 +30,7 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setTitle("Sort Shower");
-		setSize(550, 200);
+		setSize(750, 200);
 		setResizable(false);
 		numRects = new JTextField("A Number goes in here");
 		setLayout(new BorderLayout());
